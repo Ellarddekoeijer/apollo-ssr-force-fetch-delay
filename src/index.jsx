@@ -36,7 +36,9 @@ function App() {
   const {
     loading,
     data,
-  } = useQuery(ALL_PEOPLE);
+  } = useQuery(ALL_PEOPLE, {
+    ssr: false
+  });
 
   const [addPerson] = useMutation(ADD_PERSON, {
     update: (cache, { data: { addPerson: addPersonData } }) => {
@@ -93,7 +95,9 @@ function App() {
 }
 
 const client = new ApolloClient({
+  ssrMode: true,
   cache: new InMemoryCache(),
+  ssrForceFetchDelay: 1000,
   link
 });
 
